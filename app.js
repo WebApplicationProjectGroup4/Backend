@@ -28,6 +28,14 @@ app.use(helmet());
 const restaurantRouter = require('./routes/restaurant');
 app.use('restaurant', restaurantRouter);
 
+const adminRouter = require('./routes/admin');
+app.use('admin', adminRouter);
+
+const customerRouter = require('./routes/customer');
+app.use('customer', customerRouter);
+
+const orderhistoryRouter = require('./routes/orderhistory');
+app.use('orderhistory', orderhistoryRouter);
 
 
 // catch 404 and forward to error handler
