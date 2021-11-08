@@ -1,0 +1,11 @@
+INSERT INTO admin VALUES(0, 'Test Admin 1', 'Password1');
+INSERT INTO admin VALUES(0, 'Test Admin 2', 'Password2');
+
+INSERT INTO customer VALUES(0, 'Test Customer 1', 'Password1');
+INSERT INTO customer VALUES(0, 'Test Customer 2', 'Password2');
+
+INSERT INTO restaurant VALUES(0, 'Test Restaurant 1', 'Arabic', '4');
+INSERT INTO restaurant VALUES(0, 'Test Restaurant 2', 'Greek', '2');
+
+INSERT INTO orderhistory VALUES(0, 25, date, 1, 1);
+INSERT INTO orderhistory VALUES(0, 50, date, 2, 1);

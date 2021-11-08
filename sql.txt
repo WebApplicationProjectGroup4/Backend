@@ -1,0 +1,61 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+
+CREATE SCHEMA IF NOT EXISTS `awa` DEFAULT CHARACTER SET utf8 ;
+USE `awa` ;
+
+CREATE TABLE IF NOT EXISTS `awa`.`Customer` (
+  `idCustomer` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCustomer`),
+  UNIQUE INDEX `idCustomer_UNIQUE` (`idCustomer` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `awa`.`Restaurant` (
+  `idRestaurant` INT NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NULL,
+  `FoodType` VARCHAR(45) NULL,
+  `Price` INT(4) NULL,
+  PRIMARY KEY (`idRestaurant`),
+  UNIQUE INDEX `idRestaurant_UNIQUE` (`idRestaurant` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `awa`.`OrderHistory` (
+  `idOrderHistory` INT NOT NULL AUTO_INCREMENT,
+  `Price` DOUBLE NULL,
+  `Date` DATE NULL,
+  `Customer_idCustomer` INT NOT NULL,
+  `Restaurant_idRestaurant` INT NOT NULL,
+  PRIMARY KEY (`idOrderHistory`),
+  UNIQUE INDEX `idOrderHistory_UNIQUE` (`idOrderHistory` ASC) VISIBLE,
+  INDEX `fk_OrderHistory_Customer_idx` (`Customer_idCustomer` ASC) VISIBLE,
+  INDEX `fk_OrderHistory_Restaurant1_idx` (`Restaurant_idRestaurant` ASC) VISIBLE,
+  CONSTRAINT `fk_OrderHistory_Customer`
+    FOREIGN KEY (`Customer_idCustomer`)
+    REFERENCES `awa`.`Customer` (`idCustomer`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_OrderHistory_Restaurant1`
+    FOREIGN KEY (`Restaurant_idRestaurant`)
+    REFERENCES `awa`.`Restaurant` (`idRestaurant`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `awa`.`Admin` (
+  `idAdmin` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NULL,
+  PRIMARY KEY (`idAdmin`),
+  UNIQUE INDEX `idAdmin_UNIQUE` (`idAdmin` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
