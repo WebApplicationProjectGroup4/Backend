@@ -25,6 +25,9 @@ app.use('/users', usersRouter);
 const helmet = require('helmet');
 app.use(helmet());
 
+const restaurantRouter = require('./routes/restaurant');
+app.use('restaurant', restaurantRouter);
+
 
 
 // catch 404 and forward to error handler
