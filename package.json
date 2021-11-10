@@ -1,19 +1,22 @@
 {
-  "name": "awa-backend",
-  "version": "0.0.0",
-  "private": true,
+  "name": "node-mysql",
+  "version": "1.0.0",
+  "description": "Node.js Restful API",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mysql",
+    "restapi"
+  ],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "helmet": "^4.6.0",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1",
+    "express": "^4.17.1",
     "mysql": "^2.18.1"
   }
 }
