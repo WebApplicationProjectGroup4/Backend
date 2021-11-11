@@ -7,10 +7,10 @@ const Customer = function(customer) {
   this.password = customer.password;
 };
 
-// doesn't work
-// "name cannot be null"
+// remember to post with JSON data in postman :-)
 Customer.create = (newCustomer, result) => {
-    sql.query("INSERT INTO customer SET ?", newCustomer, (err, res) => {
+  console.log(newCustomer);
+    sql.query("INSERT INTO Customer SET ?", newCustomer, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -22,24 +22,8 @@ Customer.create = (newCustomer, result) => {
     });
   };
 
-/*
-// original create function
-Tutorial.create = (newTutorial, result) => {
-  sql.query("INSERT INTO tutorials SET ?", newTutorial, (err, res) => {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-      return;
-    }
-
-    console.log("created tutorial: ", { id: res.insertId, ...newTutorial });
-    result(null, { id: res.insertId, ...newTutorial });
-  });
-};
-*/
-
 Customer.findById = (id, result) => {
-    sql.query(`SELECT * FROM customer WHERE idCustomer = ${id}`, (err, res) => {
+    sql.query(`SELECT * FROM Customer WHERE idCustomer = ${id}`, (err, res) => {
     if (err) throw err; // select error
 
     if (res.length) {
@@ -54,7 +38,7 @@ Customer.findById = (id, result) => {
 };
 
 Customer.getAll = (customerName, result) => {
-  let query = "SELECT * FROM customer";
+  let query = "SELECT * FROM Customer";
 
   if (customerName) {
     query += ` WHERE name LIKE '%${customerName}%'`;
@@ -70,7 +54,7 @@ Customer.getAll = (customerName, result) => {
 
 Customer.updateById = (id, customer, result) => {
   sql.query(
-    "UPDATE customer SET name = ?, password = ? WHERE id = ?",
+    "UPDATE Customer SET Name = ?, Password = ? WHERE idCustomer = ?",
     [customer.name, customer.password, id],
     (err, res) => {
       if (err) throw err; // update error
@@ -88,7 +72,7 @@ Customer.updateById = (id, customer, result) => {
 };
 
 Customer.remove = (id, result) => {
-  sql.query("DELETE FROM customer WHERE idCustomer = ?", id, (err, res) => {
+  sql.query("DELETE FROM Customer WHERE idCustomer = ?", id, (err, res) => {
     if (err) throw err; // delete error
 
     if (res.affectedRows == 0) {

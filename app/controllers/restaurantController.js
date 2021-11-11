@@ -1,6 +1,6 @@
-const Customer = require("../models/customerModel.js");
+const Restaurant = require("../models/restaurantModel.js");
 
-// create and save a new customer to db
+// create and save a new restaurant to db
 exports.create = (req, res) => {
 
     // validate post request
@@ -10,30 +10,31 @@ exports.create = (req, res) => {
       });
     }
   
-    // create a customer (post)
-    const customer = new Customer({
+    // create a restaurant (post)
+    const restaurant = new Restaurant({
       //id: req.body.id,
       name: req.body.name,
-      password: req.body.password
+      foodtype: req.body.foodtype,
+      price: req.body.price
     });
   
-    // save customer in the db
-    Customer.create(customer, (err, data) => {
+    // save restaurant in the db
+    Restaurant.create(restaurant, (err, data) => {
       if (err)
         res.status(500).send({
           message:
-            err.message || "some error occurred while creating a new customer."
+            err.message || "some error occurred while creating a new restaurant."
         });
       else res.send(data);
     });
   };
 
-// retrieve all customers from the database (with condition).
+// retrieve all restaurants from the database (with condition).
 exports.findAll = (req, res) => {
 
     const name = req.query.name;
   
-    Customer.getAll(name, (err, data) => {
+    Restaurant.getAll(name, (err, data) => {
       if (err)
         res.status(500).send({
           message:
@@ -43,25 +44,25 @@ exports.findAll = (req, res) => {
     });
   };
 
-// find a single customer with a id
+// find a single restaurant with a id
 exports.findOne = (req, res) => {
 
-    Customer.findById(req.params.id, (err, data) => {
+    Restaurant.findById(req.params.id, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `didn't find customer with id ${req.params.id}.`
+            message: `didn't find restaurant with id ${req.params.id}.`
           });
         } else {
           res.status(500).send({
-            message: "error retrieving customer with id: " + req.params.id
+            message: "error retrieving restaurant with id: " + req.params.id
           });
         }
       } else res.send(data);
     });
   };
 
-// update a customer identified by the id in the request
+// update a restaurant identified by the id in the request
 exports.update = (req, res) => {
 
     // validate update request
@@ -73,18 +74,18 @@ exports.update = (req, res) => {
   
     console.log(req.body);
   
-    Customer.updateById(
+    Restaurant.updateById(
       req.params.id,
-      new Customer(req.body),
+      new Restaurant(req.body),
       (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-              message: `didn't find customer with id ${req.params.id}.`
+              message: `didn't find restaurant with id ${req.params.id}.`
             });
           } else {
             res.status(500).send({
-                message: `couldn't update customer with id ${req.params.id}. missing db rights?`
+                message: `couldn't update restaurant with id ${req.params.id}. missing db rights?`
             });
           }
         } else res.send(data);
@@ -92,20 +93,20 @@ exports.update = (req, res) => {
     );
   };
 
-// delete a customer with the specified id in the request
+// delete a restaurant with the specified id in the request
 exports.delete = (req, res) => {
 
-    Customer.remove(req.params.id, (err, data) => {
+    Restaurant.remove(req.params.id, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `didn't find customer with id ${req.params.id}.`
+            message: `didn't find restaurant with id ${req.params.id}.`
           });
         } else {
           res.status(500).send({
-            message: `couldn't delete customer with id ${req.params.id}. missing db rights?`
+            message: `couldn't delete restaurant with id ${req.params.id}. missing db rights?`
           });
         }
-      } else res.send({ message: `customer was deleted successfully` });
+      } else res.send({ message: `restaurant was deleted successfully` });
     });
   };

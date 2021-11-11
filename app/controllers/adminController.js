@@ -1,6 +1,6 @@
-const Customer = require("../models/customerModel.js");
+const Admin = require("../models/adminModel.js");
 
-// create and save a new customer to db
+// create and save a new admin to db
 exports.create = (req, res) => {
 
     // validate post request
@@ -10,30 +10,30 @@ exports.create = (req, res) => {
       });
     }
   
-    // create a customer (post)
-    const customer = new Customer({
+    // create a admin (post)
+    const admin = new Admin({
       //id: req.body.id,
       name: req.body.name,
       password: req.body.password
     });
   
-    // save customer in the db
-    Customer.create(customer, (err, data) => {
+    // save admin in the db
+    Admin.create(admin, (err, data) => {
       if (err)
         res.status(500).send({
           message:
-            err.message || "some error occurred while creating a new customer."
+            err.message || "some error occurred while creating a new admin."
         });
       else res.send(data);
     });
   };
 
-// retrieve all customers from the database (with condition).
+// retrieve all admins from the database (with condition).
 exports.findAll = (req, res) => {
 
     const name = req.query.name;
   
-    Customer.getAll(name, (err, data) => {
+    Admin.getAll(name, (err, data) => {
       if (err)
         res.status(500).send({
           message:
@@ -43,25 +43,25 @@ exports.findAll = (req, res) => {
     });
   };
 
-// find a single customer with a id
+// find a single admin with a id
 exports.findOne = (req, res) => {
 
-    Customer.findById(req.params.id, (err, data) => {
+    Admin.findById(req.params.id, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `didn't find customer with id ${req.params.id}.`
+            message: `didn't find admin with id ${req.params.id}.`
           });
         } else {
           res.status(500).send({
-            message: "error retrieving customer with id: " + req.params.id
+            message: "error retrieving admin with id: " + req.params.id
           });
         }
       } else res.send(data);
     });
   };
 
-// update a customer identified by the id in the request
+// update a admin identified by the id in the request
 exports.update = (req, res) => {
 
     // validate update request
@@ -73,18 +73,18 @@ exports.update = (req, res) => {
   
     console.log(req.body);
   
-    Customer.updateById(
+    Admin.updateById(
       req.params.id,
-      new Customer(req.body),
+      new Admin(req.body),
       (err, data) => {
         if (err) {
           if (err.kind === "not_found") {
             res.status(404).send({
-              message: `didn't find customer with id ${req.params.id}.`
+              message: `didn't find admin with id ${req.params.id}.`
             });
           } else {
             res.status(500).send({
-                message: `couldn't update customer with id ${req.params.id}. missing db rights?`
+                message: `couldn't update admin with id ${req.params.id}. missing db rights?`
             });
           }
         } else res.send(data);
@@ -92,20 +92,20 @@ exports.update = (req, res) => {
     );
   };
 
-// delete a customer with the specified id in the request
+// delete admin with the specified id in the request
 exports.delete = (req, res) => {
 
-    Customer.remove(req.params.id, (err, data) => {
+    Admin.remove(req.params.id, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `didn't find customer with id ${req.params.id}.`
+            message: `didn't find admin with id ${req.params.id}.`
           });
         } else {
           res.status(500).send({
-            message: `couldn't delete customer with id ${req.params.id}. missing db rights?`
+            message: `couldn't delete admin with id ${req.params.id}. missing db rights?`
           });
         }
-      } else res.send({ message: `customer was deleted successfully` });
+      } else res.send({ message: `admin was deleted successfully` });
     });
   };

@@ -8,7 +8,7 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-console.log("Cors is running on " + corsOptions.origin);
+console.log("cors is running on " + corsOptions.origin);
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -18,15 +18,18 @@ app.use(express.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Node.js/Express." });
+  res.json({ message: "welcome to group 4's backend index site" });
 });
 
 require("./app/routes/customerRoute.js")(app);
+require("./app/routes/adminRoute.js")(app);
+require("./app/routes/restaurantRoute.js")(app);
+//require("./app/routes/orderHistoryRoute.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 
 require("./app/routes/customerRoute.js")(app);
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`server is running on port ${PORT}`);
 });
