@@ -10,8 +10,8 @@ USE `awa` ;
 
 CREATE TABLE IF NOT EXISTS `awa`.`Customer` (
   `idCustomer` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  `Password` VARCHAR(45) NULL,
   PRIMARY KEY (`idCustomer`),
   UNIQUE INDEX `idCustomer_UNIQUE` (`idCustomer` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -49,8 +49,8 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `awa`.`Admin` (
   `idAdmin` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  `Password` VARCHAR(45) NULL,
   PRIMARY KEY (`idAdmin`),
   UNIQUE INDEX `idAdmin_UNIQUE` (`idAdmin` ASC) VISIBLE)
 ENGINE = InnoDB;
