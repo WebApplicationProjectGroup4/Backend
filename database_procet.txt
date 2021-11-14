@@ -1,0 +1,44 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateAdmin`(IN inID INT ,IN inname VARCHAR(45), IN inpassword VARCHAR(45))
+BEGIN
+	INSERT INTO admin(idAdmin,name,password) VALUES (inID,inname,inpassword); 
+       
+
+END
+
+
+/
+/
+/
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateCustomer`(IN inID INT, IN inname VARCHAR(45), IN inpassword VARCHAR(45))
+BEGIN
+
+INSERT INTO customer(idCustomer,name,password) VALUES (inID,inname,inpassword);
+
+END
+
+
+/
+/
+/
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Createorderhistory`(IN inIDorder INT, IN inprice DOUBLE,IN incustomerID INT, IN restaurantID INT )
+BEGIN
+
+INSERT INTO orderhistory(idOrderHistory,Price,Date,Customer_idCustomer,Restaurant_idRestaurant) VALUES (inIDorder,inprice,current_date(),incustomerID,restaurantID);
+
+END
+
+/
+/
+/
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateRestaurant`(IN restaurantID INT,IN inname VARCHAR(45), IN inFoodType VARCHAR(45), IN inPrice INT)
+BEGIN
+
+INSERT INTO restaurant(idRestaurant,Name,FoodType,Price) VALUES (restaurantID,inname,inFoodType,inPrice);
+
+
+
+END
+
