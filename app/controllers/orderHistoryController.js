@@ -1,6 +1,6 @@
 const OrderHistory = require("../models/orderHistoryModel.js");
 
-// create and save a new order history to db
+// create and save a new order to db
 exports.create = (req, res) => {
 
     // validate post request
@@ -10,7 +10,7 @@ exports.create = (req, res) => {
       });
     }
   
-    // create an order history (post)
+    // create an order (post)
     const orderHistory = new OrderHistory({
       //id: req.body.id,
       price: req.body.price,
@@ -18,7 +18,7 @@ exports.create = (req, res) => {
       idRestaurant: req.body.idRestaurant
     });
 
-     // save order history in the db
+     // save order in the db
      OrderHistory.create(orderHistory, (err, data) => {
         if (err)
           res.status(500).send({
@@ -29,12 +29,17 @@ exports.create = (req, res) => {
       });
     };
 
-// retrieve all historical orders from the database (with condition).
+// retrieve all orders from the database (with body condition).
 exports.findAll = (req, res) => {
 
-    const name = req.query.name;
+    const idCustomer = req.body.idCustomer;
+
+    // GET: http://localhost:8080/orderhistory
+    // body - raw - json
+    // { "idCustomer": "19" }
+    // gets all orders by customer id 19
   
-    OrderHistory.getAll(name, (err, data) => {
+    OrderHistory.getAll(idCustomer, (err, data) => {
       if (err)
         res.status(500).send({
           message:
@@ -42,22 +47,4 @@ exports.findAll = (req, res) => {
         });
       else res.send(data);
     });
-  };
-
-// find a single order history with its respective order id.
-exports.findOne = (req, res) => {
-
-    OrderHistory.findById(req.params.id, (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `didn't find order with id ${req.params.id}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "error retrieving order with id: " + req.params.id
-          });
-        }
-      } else res.send(data);
-    });
-  };
+};

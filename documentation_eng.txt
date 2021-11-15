@@ -1,0 +1,64 @@
+server.js
+
+npm install -> npm start -> server online
+This script starts with npm start -command.
+
+Row 4 -> Folder app is declared as an express -server.
+Row 10 -> Enable CORS, it eases up the usage of databases with express.
+Cors listens for HTTP requests by port 8081.
+
+Rows 24-27 -> We enable the http-routes on the server, which the controllers will use.
+Row 30 -> Set the listening port as 8080.
+
+
+
+/app/
+
+/config/dbConfig.js
+
+Exported stock connection to database, user/password is root
+
+
+
+/controllers/
+
+HTTP request -controllers for each database table.
+Each export -function will send information to related table model in /models/,
+if it needs information. getAll() -function works with or without parameters,
+if you decide to put parameters in the http request it will return related entries from the table.
+If you decide to call it with a null -parameter (no parameters), it will return everything
+the related table.
+
+
+
+/models/
+
+Functions to use the database. Controller will process a HTTP request and send it to it's related model.
+For an example customerController.js -> Exports.create(controller) -> Customer.create(model)
+-> "INSERT INTO Customer SET ?". The ? will be replaced with the parameter we've been given by the controller.
+The parameter is usually a JSON-object, which the .query -function will parse and insert/select from the database.
+
+db.js
+
+Database connection script. This uses the earlier declared stock connection to the database,
+and exports it to each model so they are connected to the database too.
+
+
+
+/routes/
+
+Controller will get the information on what to do by these routes.
+If the route type is router.post, we'll go to the related model's INSERT -function,
+router.get will og to the SELECT -function etc.
+
+Most of these work so far by index, which means that if we are in
+localhost:8080/customers, the URL does not need to change.
+We only send a get/post request, which will return related entries from the database.
+
+
+
+/node_modules/
+
+This folder is irrelevant for our usage.
+The folder is created with the npm install -command, and it automatically installs all the modules and files it needs to work.
+This is in .gitignore because it takes space from our github root folder, so it is always installed locally before the server can be set up.

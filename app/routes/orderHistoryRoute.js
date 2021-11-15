@@ -3,14 +3,11 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    // create a new customer
+    // create a new order
     router.post("/", orderHistory.create);
   
-    // retrieve all customer
+    // retrieve all orders, with idCustomer condition
     router.get("/", orderHistory.findAll);
-  
-    // retrieve a single customer with id
-    router.get("/:id", orderHistory.findOne);
   
     app.use('/orderhistory', router);
 };

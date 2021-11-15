@@ -23,7 +23,7 @@ Restaurant.create = (newRestaurant, result) => {
     });
   };
 
-  Restaurant.findById = (id, result) => {
+Restaurant.findById = (id, result) => {
     sql.query(`SELECT * FROM Restaurant WHERE idRestaurant = ${id}`, (err, res) => {
     if (err) throw err; // select error
 
@@ -49,41 +49,6 @@ Restaurant.getAll = (restaurantName, result) => {
     if (err) throw err; // select error
 
     console.log("restaurant: ", res);
-    result(null, res);
-  });
-};
-
-Restaurant.updateById = (id, restaurant, result) => {
-  sql.query(
-    "UPDATE Restaurant SET Name = ?, FoodType = ?, Price = ? WHERE idRestaurant = ?",
-    [restaurant.name, restaurant.foodtype, restaurant.price, id],
-    (err, res) => {
-      if (err) throw err; // update error
-
-      if (res.affectedRows == 0) {
-        // not found by ID
-        result({ kind: "not_found" }, null);
-        return;
-      }
-
-      console.log("updated restaurant: ", restaurant.name + " " + restaurant.foodtype + " "
-      + restaurant.price + " " + id);
-      result(null, res);
-    }
-  );
-};
-
-Restaurant.remove = (id, result) => {
-  sql.query("DELETE FROM Restaurant WHERE idRestaurant = ?", id, (err, res) => {
-    if (err) throw err; // delete error
-
-    if (res.affectedRows == 0) {
-      // not found by ID
-      result({ kind: "not_found" }, null);
-      return;
-    }
-
-    console.log("deleted restaurant with id: ", id);
     result(null, res);
   });
 };

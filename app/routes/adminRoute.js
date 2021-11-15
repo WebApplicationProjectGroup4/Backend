@@ -3,20 +3,14 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    // create a new customer
+    // create a new admin
     router.post("/", admin.create);
   
-    // retrieve all customer
+    // retrieve all admins
     router.get("/", admin.findAll);
   
-    // retrieve a single customer with id
+    // retrieve a single admin with id
     router.get("/:id", admin.findOne);
-  
-    // update a customer with id
-    router.put("/:id", admin.update);
-  
-    // delete a customer with id
-    router.delete("/:id", admin.delete);
 
     app.use('/admins', router);
   };

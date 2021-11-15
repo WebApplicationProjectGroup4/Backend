@@ -29,7 +29,6 @@ require("./app/routes/orderHistoryRoute.js")(app);
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 
-require("./app/routes/customerRoute.js")(app);
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });

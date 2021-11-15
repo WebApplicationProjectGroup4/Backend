@@ -12,11 +12,5 @@ module.exports = app => {
     // retrieve a single customer with id
     router.get("/:id", restaurant.findOne);
   
-    // update a customer with id
-    router.put("/:id", restaurant.update);
-  
-    // delete a customer with id
-    router.delete("/:id", restaurant.delete);
-
     app.use('/restaurants', router);
   };
