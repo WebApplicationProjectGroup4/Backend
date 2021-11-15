@@ -1,6 +1,6 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateAdmin`(IN inID INT ,IN inname VARCHAR(45), IN inpassword VARCHAR(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateAdmin`(IN inID INT ,IN inName VARCHAR(45), IN inPassword VARCHAR(45))
 BEGIN
-	INSERT INTO admin(idAdmin,name,password) VALUES (inID,inname,inpassword); 
+	INSERT INTO Admin(idAdmin,Name,Password) VALUES (inID,inName,inPassword); 
        
 
 END
@@ -9,10 +9,10 @@ END
 /
 /
 /
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateCustomer`(IN inID INT, IN inname VARCHAR(45), IN inpassword VARCHAR(45))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateCustomer`(IN inID INT, IN inName VARCHAR(45), IN inPassword VARCHAR(45))
 BEGIN
 
-INSERT INTO customer(idCustomer,name,password) VALUES (inID,inname,inpassword);
+INSERT INTO Customer(idCustomer,Name,Password) VALUES (inID,inName,inPassword);
 
 END
 
@@ -21,10 +21,10 @@ END
 /
 /
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Createorderhistory`(IN inIDorder INT, IN inprice DOUBLE,IN incustomerID INT, IN restaurantID INT )
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateOrderhistory`(IN inID INT, IN inPrice DOUBLE,IN inCustomerID INT, IN RestaurantID INT)
 BEGIN
 
-INSERT INTO orderhistory(idOrderHistory,Price,Date,Customer_idCustomer,Restaurant_idRestaurant) VALUES (inIDorder,inprice,current_date(),incustomerID,restaurantID);
+INSERT INTO OrderHistory(idOrderHistory,Price,Date,Customer_idCustomer,Restaurant_idRestaurant) VALUES (inID,inPrice,current_date(),inCustomerID,RestaurantID);
 
 END
 
@@ -33,10 +33,10 @@ END
 /
 
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateRestaurant`(IN restaurantID INT,IN inname VARCHAR(45), IN inFoodType VARCHAR(45), IN inPrice INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateRestaurant`(IN inID INT,IN inName VARCHAR(45), IN inFoodType VARCHAR(45), IN inPrice INT)
 BEGIN
 
-INSERT INTO restaurant(idRestaurant,Name,FoodType,Price) VALUES (restaurantID,inname,inFoodType,inPrice);
+INSERT INTO restaurant(idRestaurant,Name,FoodType,Price) VALUES (inID,inName,inFoodType,inPrice);
 
 
 
