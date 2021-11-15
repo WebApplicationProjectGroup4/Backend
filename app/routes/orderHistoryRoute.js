@@ -12,11 +12,5 @@ module.exports = app => {
     // retrieve a single customer with id
     router.get("/:id", orderHistory.findOne);
   
-    // update a customer with id
-    router.put("/:id", orderHistory.update);
-  
-    // delete a customer with id
-    router.delete("/:id", orderHistory.delete);
-
     app.use('/orderhistory', router);
-  };
+};

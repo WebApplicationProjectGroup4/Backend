@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 require("./app/routes/customerRoute.js")(app);
 require("./app/routes/adminRoute.js")(app);
 require("./app/routes/restaurantRoute.js")(app);
-//require("./app/routes/orderHistoryRoute.js")(app);
+require("./app/routes/orderHistoryRoute.js")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
