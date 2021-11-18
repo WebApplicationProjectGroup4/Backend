@@ -1,11 +1,11 @@
-INSERT INTO admin VALUES(0, 'Test Admin 1', 'Password1');
-INSERT INTO admin VALUES(0, 'Test Admin 2', 'Password2');
+INSERT INTO Users VALUES(0, "Test Account 1", "Test Password 1", 0);
+INSERT INTO Users VALUES(0, "Test Account 2", "Test Password 2", 0);
+INSERT INTO Users VALUES(0, "Test Admin Account 1", "Test Admin Password 1", 1);
 
-INSERT INTO customer VALUES(0, 'Test Customer 1', 'Password1');
-INSERT INTO customer VALUES(0, 'Test Customer 2', 'Password2');
+INSERT INTO Restaurants VALUES(0, "Arabic Restaurant", "Arabic", 3);
+INSERT INTO Restaurants VALUES(0, "Chinese Restaurant", "Chinese", 2);
+INSERT INTO Restaurants VALUES(0, "Fast food Restaurant", "Fast food", 1);
 
-INSERT INTO restaurant VALUES(0, 'Test Restaurant 1', 'Arabic', '4');
-INSERT INTO restaurant VALUES(0, 'Test Restaurant 2', 'Greek', '2');
-
-INSERT INTO orderhistory VALUES(0, 25, date, 1, 1);
-INSERT INTO orderhistory VALUES(0, 50, date, 2, 1);
+INSERT INTO OrderHistory VALUES(0, 25, current_date(), 1, 1);
+INSERT INTO OrderHistory VALUES(0, 50, current_date(), 2, 2);
+INSERT INTO OrderHistory VALUES(0, 75, current_date(), 3, 3);
