@@ -10,7 +10,7 @@ CREATE TRIGGER UserCreate BEFORE INSERT ON users FOR each row SET NEW.Password =
 //Tämä procedure mysql queryyn, eli avaa tietokanta query tabissa ja siellä vasemmassa palkissa näkyy SCHEMAS, sieltä stored procedures kohdalle ja oikeahiiri, create stored procedure..
 // Sinne kopioi tämä:
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `Createorderhistory`(IN inIDorder INT, IN inprice DOUBLE,IN incustomerID INT, IN restaurantID INT )
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Createorderhistory`(IN inprice DOUBLE,IN incustomerID INT, IN restaurantID INT )
 BEGIN
 
 INSERT INTO orderhistory(idOrderHistory,Price,Date,Customer_idCustomer,Restaurant_idRestaurant) VALUES (inIDorder,inprice,current_date(),incustomerID,restaurantID);
