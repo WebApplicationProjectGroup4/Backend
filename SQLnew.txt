@@ -17,10 +17,10 @@ USE `awa` ;
 -- -----------------------------------------------------
 -- Table `awa`.`Users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `awa`.`Users` (
+CREATE TABLE IF NOT EXISTS `awa`.`User` (
   `idCustomer` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(255) NULL,
+  `Name` VARCHAR(45) NOT NULL,
+  `Password` VARCHAR(255) NULL,
   `AdminAccount` TINYINT NULL,
   PRIMARY KEY (`idCustomer`),
   UNIQUE INDEX `idCustomer_UNIQUE` (`idCustomer` ASC) VISIBLE)
