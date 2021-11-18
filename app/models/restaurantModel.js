@@ -4,14 +4,14 @@ const sql = require("./db.js");
 const Restaurant = function(restaurant) {
   //this.idRestaurant = restaurant.idRestaurant;
   this.name = restaurant.name;
-  this.foodtype = restaurant.foodtype;
-  this.price = restaurant.price;
+  this.foodType = restaurant.foodtype;
+  this.priceLevel = restaurant.price;
 };
 
 // remember to post with JSON data in postman :-)
 Restaurant.create = (newRestaurant, result) => {
 
-    sql.query("INSERT INTO Restaurant SET ?", newRestaurant, (err, res) => {
+    sql.query("INSERT INTO Restaurants SET ?", newRestaurant, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -24,7 +24,7 @@ Restaurant.create = (newRestaurant, result) => {
   };
 
 Restaurant.findById = (id, result) => {
-    sql.query(`SELECT * FROM Restaurant WHERE idRestaurant = ${id}`, (err, res) => {
+    sql.query(`SELECT * FROM Restaurants WHERE idRestaurant = ${id}`, (err, res) => {
     if (err) throw err; // select error
 
     if (res.length) {
@@ -39,10 +39,10 @@ Restaurant.findById = (id, result) => {
 };
 
 Restaurant.getAll = (restaurantName, result) => {
-  let query = "SELECT * FROM Restaurant";
+  let query = "SELECT * FROM Restaurants";
 
   if (restaurantName) {
-    query += ` WHERE name LIKE '%${restaurantName}%'`;
+    query += ` WHERE Name LIKE '%${restaurantName}%'`;
   }
 
   sql.query(query, (err, res) => {

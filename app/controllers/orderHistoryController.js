@@ -14,7 +14,7 @@ exports.create = (req, res) => {
     const orderHistory = new OrderHistory({
       //id: req.body.id,
       price: req.body.price,
-      idCustomer: req.body.idCustomer,
+      idUser: req.body.idUser,
       idRestaurant: req.body.idRestaurant
     });
 

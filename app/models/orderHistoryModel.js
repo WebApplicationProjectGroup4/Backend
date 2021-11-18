@@ -23,12 +23,12 @@ OrderHistory.create = (newOH, result) => {
     });
 };
 
-OrderHistory.getAll = (idCustomer, result) => {
+OrderHistory.getAll = (idUser, result) => {
     let query = "SELECT * FROM OrderHistory"; // get all
   
-    if (idCustomer)
-      query += ` WHERE Customer_idCustomer LIKE '%${idCustomer}%'`;
-      // if idCustomer exists, add this to sql.query
+    if (idUser)
+      query += ` WHERE User_idUser LIKE '%${idUser}%'`;
+      // if idUser exists, add this to sql.query
 
     sql.query(query, (err, res) => {
         if (err) throw err; // select error

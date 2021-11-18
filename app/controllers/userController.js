@@ -1,6 +1,6 @@
-const Admin = require("../models/adminModel.js");
+const User = require("../models/userModel.js");
 
-// create and save a new admin to db
+// create and save a new user to db
 exports.create = (req, res) => {
 
     // validate post request
@@ -10,30 +10,31 @@ exports.create = (req, res) => {
       });
     }
   
-    // create a admin (post)
-    const admin = new Admin({
+    // create a user (post)
+    const user = new User({
       //id: req.body.id,
       name: req.body.name,
-      password: req.body.password
+      password: req.body.password,
+      adminAccount: req.body.adminAccount
     });
   
-    // save admin in the db
-    Admin.create(admin, (err, data) => {
+    // save user in the db
+    User.create(user, (err, data) => {
       if (err)
         res.status(500).send({
           message:
-            err.message || "some error occurred while creating a new admin."
+            err.message || "some error occurred while creating a new user."
         });
       else res.send(data);
     });
 };
 
-// retrieve all admins from the database (with condition).
+// retrieve all users from the database (with condition).
 exports.findAll = (req, res) => {
 
     const name = req.query.name;
   
-    Admin.getAll(name, (err, data) => {
+    User.getAll(name, (err, data) => {
       if (err)
         res.status(500).send({
           message:
@@ -43,18 +44,18 @@ exports.findAll = (req, res) => {
     });
 };
 
-// find a single admin with a id
+// find a single user with a id
 exports.findOne = (req, res) => {
 
-    Admin.findById(req.params.id, (err, data) => {
+    User.findById(req.params.id, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
           res.status(404).send({
-            message: `didn't find admin with id ${req.params.id}.`
+            message: `didn't find user with id ${req.params.id}.`
           });
         } else {
           res.status(500).send({
-            message: "error retrieving admin with id: " + req.params.id
+            message: "error retrieving user with id: " + req.params.id
           });
         }
       } else res.send(data);

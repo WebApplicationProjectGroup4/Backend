@@ -14,8 +14,8 @@ exports.create = (req, res) => {
     const restaurant = new Restaurant({
       //id: req.body.id,
       name: req.body.name,
-      foodtype: req.body.foodtype,
-      price: req.body.price
+      foodType: req.body.foodtype,
+      priceLevel: req.body.priceLevel
     });
   
     // save restaurant in the db

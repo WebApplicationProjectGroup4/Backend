@@ -15,12 +15,9 @@ app.get("/test", (req, res) => {
   res.json({ message: "welcome to group 4's backend index site" });
 });
 
-require("./app/routes/customerRoute.js")(app);
-require("./app/routes/adminRoute.js")(app);
+require("./app/routes/userRoute.js")(app);
 require("./app/routes/restaurantRoute.js")(app);
 require("./app/routes/orderHistoryRoute.js")(app);
-
-
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
