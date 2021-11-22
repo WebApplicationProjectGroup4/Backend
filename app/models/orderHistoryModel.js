@@ -4,14 +4,14 @@ const sql = require("./db.js");
 const OrderHistory = function(orderHistory) {
   //this.idOrderHistory = customer.idOrderHistory;
   this.price = orderHistory.price;
-  this.idCustomer = orderHistory.idCustomer;
+  this.idUser = orderHistory.idUser;
   this.idRestaurant = orderHistory.idRestaurant;
 };
 
 OrderHistory.create = (newOH, result) => {
 
     let procQuery = `CALL CreateOrderHistory(?,?,?)`;
-    sql.query(procQuery, [newOH.price, newOH.idCustomer, newOH.idRestaurant], (err, res) => {
+    sql.query(procQuery, [newOH.price, newOH.idUser, newOH.idRestaurant], (err, res) => {
 
       if (err) {
         console.log("error: ", err);
