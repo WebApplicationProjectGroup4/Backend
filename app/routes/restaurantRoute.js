@@ -3,13 +3,13 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    // create a new customer
+    // create a new restaurant
     router.post("/", restaurant.create);
   
-    // retrieve all customer
+    // retrieve all restaurant
     router.get("/", restaurant.findAll);
   
-    // retrieve a single customer with id
+    // retrieve a single restaurant with id
     router.get("/:id", restaurant.findOne);
   
     app.use('/restaurants', router);

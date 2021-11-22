@@ -18,6 +18,7 @@ app.get("/test", (req, res) => {
 require("./app/routes/userRoute.js")(app);
 require("./app/routes/restaurantRoute.js")(app);
 require("./app/routes/orderHistoryRoute.js")(app);
+require("./app/routes/loginRoute.js")(app);
 
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
