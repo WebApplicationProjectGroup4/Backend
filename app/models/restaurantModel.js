@@ -4,8 +4,11 @@ const sql = require("./db.js");
 const Restaurant = function(restaurant) {
   //this.idRestaurant = restaurant.idRestaurant;
   this.name = restaurant.name;
-  this.foodType = restaurant.foodtype;
-  this.priceLevel = restaurant.price;
+  this.address = restaurant.address;
+  this.priceLevel = restaurant.priceLevel;
+  this.operatinghours = restaurant.operatinghours;
+  this.menu = restaurant.menu;
+  this.foods = restaurant.foods;
 };
 
 // remember to post with JSON data in postman :-)
