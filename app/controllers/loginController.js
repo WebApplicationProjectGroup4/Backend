@@ -1,14 +1,16 @@
 const Login = require("../models/loginModel.js");
 
-// retrieve all restaurants from the database (with condition).
+// retrieve all users from the database (with condition).
 exports.findAll = (req, res) => {
   
-    const login = new Login({
-        name: req.query.name,
-        password: req.query.password
-      });
+    //const login = new Login({
+    //    name: req.query.name,
+    //    password: req.query.password
+    //  });
 
-    Login.getAll(login, (err, data) => {
+    const name = req.body.name;
+
+    Login.getAll(name, (err, data) => {
       if (err)
         res.status(500).send({
           message:

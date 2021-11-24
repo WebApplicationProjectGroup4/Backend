@@ -1,16 +1,19 @@
 const sql = require("./db.js");
 
-// constructor
+ constructor
 const Login = function(login) {
   this.name = login.name;
-  this.password = login.password;
+  //this.password = login.password;
 };
 
-Login.getAll = (login, result) => {
-    let query = "SELECT * FROM Users"; // get all
+Login.getAll = (name, result) => {
+    let query = `SELECT * FROM Users WHERE Name = '${name}'`; // get all
+    //let query = `SELECT * FROM Users`;
 
-    var localUser = login.name;
-    var localPW = login.password;
+    //var localUser = login.name;
+    //var localPW = login.password;
+
+    console.log(name);
 
     let adminLoginOK;
     let userLoginOK;
@@ -19,6 +22,16 @@ Login.getAll = (login, result) => {
         if (err) throw err; // select error
 
         if (res.length > 0) {
+            console.log(res[0].Name);
+            if (res[0].Name === name)
+                result(null, "Match found");
+        } 
+        
+        else
+            result(null, "No match");
+            
+
+        /*if (res.length > 0) {
             for (var i = 0; i < res.length; i++) {
           
                     if (res[i].Name === localUser && res[i].Password === localPW ) {
@@ -35,10 +48,10 @@ Login.getAll = (login, result) => {
                         }
                     } 
                 }
-        }
+        }*/
 
-        if (adminLoginOK == null && userLoginOK == null)
-            result(null, "Wrong username or password!");
+        //if (adminLoginOK == null && userLoginOK == null)
+        //    result(null, "Wrong username or password!");
     });
 };
 
