@@ -5,20 +5,13 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
--- -----------------------------------------------------
--- -----------------------------------------------------
--- Schema awa
--- -----------------------------------------------------
-
--- -----------------------------------------------------
 -- Schema awa
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `awa` DEFAULT CHARACTER SET utf8 ;
 USE `awa` ;
 
 -- -----------------------------------------------------
--- Table `awa`.`restaurants`
+-- Table `awa`.`Restaurants`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `awa`.`restaurants` (
   `idRestaurant` INT(11) NOT NULL AUTO_INCREMENT,
@@ -26,7 +19,6 @@ CREATE TABLE IF NOT EXISTS `awa`.`restaurants` (
   `PriceLevel` INT(4) NULL DEFAULT NULL,
   `Address` VARCHAR(45) NULL,
   `OperatingHours` VARCHAR(45) NULL,
-  `Menu` VARCHAR(45) NULL,
   `Foods` VARCHAR(45) NULL,
   PRIMARY KEY (`idRestaurant`),
   UNIQUE INDEX `idRestaurant_UNIQUE` (`idRestaurant` ASC) VISIBLE)
@@ -35,7 +27,7 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `awa`.`users`
+-- Table `awa`.`Users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `awa`.`users` (
   `idUser` INT(11) NOT NULL AUTO_INCREMENT,
@@ -49,7 +41,7 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `awa`.`orderhistory`
+-- Table `awa`.`OrderHistory`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `awa`.`orderhistory` (
   `idOrderHistory` INT(11) NOT NULL AUTO_INCREMENT,
@@ -66,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `awa`.`orderhistory` (
     REFERENCES `awa`.`restaurants` (`idRestaurant`),
   CONSTRAINT `fk_OrderHistory_Users1`
     FOREIGN KEY (`Users_idUser`)
-    REFERENCES `awa`.`users` (`idUser`))
+    REFERENCES `awa`.`Users` (`idUser`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
