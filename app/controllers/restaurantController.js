@@ -16,8 +16,7 @@ exports.create = (req, res) => {
       name: req.body.name,
       address: req.body.address,
       priceLevel: req.body.priceLevel,
-      operatinghours: req.body.operatinghours,
-      menu: req.body.menu,
+      operatingHours: req.body.operatingHours,
       foods:  req.body.foods
     });
   

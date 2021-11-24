@@ -2,12 +2,10 @@ const sql = require("./db.js");
 
 // constructor
 const Restaurant = function(restaurant) {
-  //this.idRestaurant = restaurant.idRestaurant;
   this.name = restaurant.name;
-  this.address = restaurant.address;
   this.priceLevel = restaurant.priceLevel;
-  this.operatinghours = restaurant.operatinghours;
-  this.menu = restaurant.menu;
+  this.address = restaurant.address;
+  this.operatingHours = restaurant.operatingHours;
   this.foods = restaurant.foods;
 };
 
