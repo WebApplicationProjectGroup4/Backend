@@ -7,6 +7,7 @@ const Restaurant = function(restaurant) {
   this.address = restaurant.address;
   this.operatingHours = restaurant.operatingHours;
   this.foods = restaurant.foods;
+  this.foodsPrices = restaurant.foodsPrices;
 };
 
 // remember to post with JSON data in postman :-)
