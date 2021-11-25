@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `awa`.`restaurants` (
   `Address` VARCHAR(45) NULL,
   `OperatingHours` VARCHAR(45) NULL,
   `Foods` VARCHAR(45) NULL,
+  `FoodsPrices` VARCHAR (45) NULL,
   PRIMARY KEY (`idRestaurant`),
   UNIQUE INDEX `idRestaurant_UNIQUE` (`idRestaurant` ASC) VISIBLE)
 ENGINE = InnoDB
