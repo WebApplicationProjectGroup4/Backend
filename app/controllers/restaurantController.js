@@ -17,7 +17,8 @@ exports.create = (req, res) => {
       address: req.body.address,
       priceLevel: req.body.priceLevel,
       operatingHours: req.body.operatingHours,
-      foods:  req.body.foods
+      foods: req.body.foods,
+      foodsPrices: req.body.foodsPrices
     });
   
     // save restaurant in the db
