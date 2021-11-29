@@ -2,9 +2,12 @@
 
 // restaurants on tyyliä id, nimi, pricelevel, address, operatinghours, menu (eroteltu viivoilla), menun hinnat (eroteltu viivoilla)
 
-insert into restaurants values (0, "Test Restaurant 1", 1, "Ouluntie 1", "8-12", "Mozzarella-Chili-Nuggets", "5-5-10");
-insert into restaurants values (0, "Test Restaurant 2", 2, "Ouluntie 2", "8-14", "Mozzarella-Chili Cheese-Cheeseburger", "5-10-15");
-insert into restaurants values (0, "Test Restaurant 3", 3, "Ouluntie 3", "8-16", "Chili Pizza-Fries-Spicy Nuggets", "10-2-5");
+insert into restaurants values (0, "Hesburger", 2, "Keskustankatu 24", "8-21", "Mozzarella-Chili-Cheeseburger", "4-4-5");
+insert into restaurants values (0, "McDonalds", 1, "Ouluntie 27", "0-24", "Mozzarella Sticks-Nuggets-Big Mac-Cheeseburger", "2-4-6-1");
+insert into restaurants values (0, "Pannu", 3, "Toppilantie 14", "8-14", "Mozzarella-Chili Cheese-Cheeseburger", "5-10-15");
+insert into restaurants values (0, "Picnic", 3, "Keskustankatu 15", "8-16", "Taco Salad-Chicken", "4-6");
+insert into restaurants values (0, "Subway", 3, "Linnanmaan kampus", "10-18", "Italian BMT 15cm-Italian BMT 15cm-Kana Teriyaki 15cm-Kana Teriyaki 30cm", "6-10-7-11");
+insert into restaurants values (0, "Ravintola", 0, "Testaustie 1", "0-24", "Test Food 1-Test Food 2-Test Food 3", "5-10-15");
 
 INSERT INTO OrderHistory VALUES(0, 25, current_date(), 1, 1);
 INSERT INTO OrderHistory VALUES(0, 50, current_date(), 2, 2);
