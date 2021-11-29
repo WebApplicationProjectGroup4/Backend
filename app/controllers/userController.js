@@ -32,7 +32,7 @@ exports.create = (req, res) => {
 // retrieve all users from the database (with condition).
 exports.findAll = (req, res) => {
 
-    const name = req.query.name;
+    const name = req.body.name;
   
     User.getAll(name, (err, data) => {
       if (err)

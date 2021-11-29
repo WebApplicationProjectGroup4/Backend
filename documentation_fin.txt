@@ -1,5 +1,7 @@
 server.js
 
+! MySQL -palvelimen tulee olla päällä !
+
 npm install -> npm start -> palvelin käynnissä
 Tämä skripti käynnistyy npm start -komennolla.
 
