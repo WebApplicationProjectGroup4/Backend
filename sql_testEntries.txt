@@ -1,11 +1,15 @@
-INSERT INTO Users VALUES(0, "Test Account 1", "Test Password 1", 0);
-INSERT INTO Users VALUES(0, "Test Account 2", "Test Password 2", 0);
-INSERT INTO Users VALUES(0, "Test Admin Account 1", "Test Admin Password 1", 1);
+// Tehkää USERS -postaus APIn kautta, niin bcrypt kryptaa salasanat
 
-INSERT INTO Restaurants VALUES(0, "Arabic Restaurant", "Arabic", 3);
-INSERT INTO Restaurants VALUES(0, "Chinese Restaurant", "Chinese", 2);
-INSERT INTO Restaurants VALUES(0, "Fast food Restaurant", "Fast food", 1);
+// restaurants on tyyliä id, nimi, pricelevel, address, operatinghours, menu (eroteltu viivoilla), menun hinnat (eroteltu viivoilla)
+
+insert into restaurants values (0, "Test Restaurant 1", 1, "Ouluntie 1", "8-12", "Mozzarella-Chili-Nuggets", "5-5-10");
+insert into restaurants values (0, "Test Restaurant 2", 2, "Ouluntie 2", "8-14", "Mozzarella-Chili Cheese-Cheeseburger", "5-10-15");
+insert into restaurants values (0, "Test Restaurant 3", 3, "Ouluntie 3", "8-16", "Chili Pizza-Fries-Spicy Nuggets", "10-2-5");
 
 INSERT INTO OrderHistory VALUES(0, 25, current_date(), 1, 1);
 INSERT INTO OrderHistory VALUES(0, 50, current_date(), 2, 2);
 INSERT INTO OrderHistory VALUES(0, 75, current_date(), 3, 3);
+
+CALL CreateOrderHistory(25,1,1);
+CALL CreateOrderHistory(25,1,2);
+CALL CreateOrderHistory(25,1,3);
