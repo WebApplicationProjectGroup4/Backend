@@ -3,8 +3,8 @@ const app = express();
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const sql = require("./app/models/db.js");
-const cors = require("cors")
-var logout = require('express-passport-logout');
+const cors = require("cors");
+const bcrypt = require("bcrypt");
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3001;
@@ -15,6 +15,7 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
+// cors middleware => cross origin policy for easier data transfers across 3001 <-> 3000
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -35,29 +36,29 @@ passport.use(new BasicStrategy(
   
         if (res.length > 0) {
           if (res[0].Name === username) {
-            console.log("Match found!");
-  
-            //if match is found, compare the passwords
-            if (res[0].Name === username) {
-  
-              //if passwords match, then proceed to route handler (the protected resource)
-              if(res[0].Password === password)
+ 
+            (async () => {
+              const result = await bcrypt.compare(password, res[0].Password); 
+
+              if(result == true)
                 done(null, username);
-                
-              else 
+              
+              else
                 done(null, false);
-            }
+
+            }) ();
+
           }
-        } 
-          //reject the request
-          else done(null, false);
+        }
+        //reject the request (no such user)
+        else done(null, false);
       })
   }
 ));
 
 app.get('/login', passport.authenticate('basic', { session: false}), (req, res) => {
-  console.log("Your credentials matched");
-  res.send("Login was successful");
+  console.log("Username & password matched");
+  res.send("Login OK");
 })
 
 
@@ -65,11 +66,6 @@ app.get('/authorizationsite', passport.authenticate('basic', { session: false}),
   console.log("Access granted");
   res.send("Access granted");
 })
-
-// simple test route
-app.get("/test", (req, res) => {
-  res.json({ message: "welcome to group 4's backend index site" });
-});
 
 require("./app/routes/userRoute.js")(app);
 require("./app/routes/restaurantRoute.js")(app);

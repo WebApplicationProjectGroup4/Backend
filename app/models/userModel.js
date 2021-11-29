@@ -1,4 +1,5 @@
 const sql = require("./db.js");
+const bcrypt = require('bcrypt');
 
 // constructor
 const User = function(user) {
@@ -10,6 +11,10 @@ const User = function(user) {
 
 // remember to post with JSON data in postman :-)
 User.create = (newUser, result) => {
+
+  const salt = bcrypt.genSaltSync(6);
+  newUser.password = bcrypt.hashSync(newUser.password, salt);
+  // encrypt new password
 
     sql.query("INSERT INTO Users SET ?", newUser, (err, res) => {
       if (err) {
