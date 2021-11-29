@@ -1,11 +1,3 @@
-// Tämä rivi Mysql workbench Query tabiin:
-CREATE TRIGGER UserCreate BEFORE INSERT ON users FOR each row SET NEW.Password = sha2('NEW.Password',224);
-
-
-// Tämä toiminto automaattisesti hashaa tietokantaan insertatut salasanat, jotta niitä kukaan ei niin äkkiä saisi selville. (Tehtyjen käyttäjien salasanat muistiin!).
-
-
-
 
 //Tämä procedure mysql queryyn, eli avaa tietokanta query tabissa ja siellä vasemmassa palkissa näkyy SCHEMAS, sieltä stored procedures kohdalle ja oikeahiiri, create stored procedure..
 // Sinne kopioi tämä:
