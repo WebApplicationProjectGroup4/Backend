@@ -22,6 +22,9 @@ app.use((req, res, next) => {
   next(); // handler -> next() -> function/route we want to use
 });
 
+let adminAcc = 0; // we'll use this to let frontend know
+// that this is admin
+
 passport.use(new BasicStrategy(
   
   function(username, password, done) {
@@ -33,19 +36,32 @@ passport.use(new BasicStrategy(
 
       sql.query(query, (err, res) => {
         if (err) throw err; // select error
-  
         if (res.length > 0) {
           if (res[0].Name === username) {
  
             (async () => {
+
+              // compare input password to crypted password from db
               const result = await bcrypt.compare(password, res[0].Password); 
 
-              if(result == true)
+              // check admin field from db
+              const admin = (res[0].AdminAccount == 1);
+
+              if(result == true) {
+                console.log("Admin check: ", admin);
+
+                if (admin == true)
+                  adminAcc = 1;
+                
+                else
+                  adminAcc = 0;
+
                 done(null, username);
+              }
+                
               
               else
                 done(null, false);
-
             }) ();
 
           }
@@ -57,8 +73,14 @@ passport.use(new BasicStrategy(
 ));
 
 app.get('/login', passport.authenticate('basic', { session: false}), (req, res) => {
-  console.log("Username & password matched");
-  res.send("Login OK");
+  console.log("Login ok");
+
+  if (adminAcc == 0) 
+    res.send("Login ok - user");
+  
+  else
+    res.send("Login ok - admin");
+  
 })
 
 
