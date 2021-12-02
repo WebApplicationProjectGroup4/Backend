@@ -6,11 +6,8 @@ module.exports = app => {
     // create a new restaurant
     router.post("/", restaurant.create);
   
-    // retrieve all restaurant
+    // retrieve all restaurants
     router.get("/", restaurant.findAll);
-  
-    // retrieve a single restaurant with id
-    router.get("/:id", restaurant.findOne);
   
     app.use('/restaurants', router);
   };

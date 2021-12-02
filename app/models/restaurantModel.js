@@ -13,32 +13,13 @@ const Restaurant = function(restaurant) {
 // remember to post with JSON data in postman :-)
 Restaurant.create = (newRestaurant, result) => {
 
-    sql.query("INSERT INTO Restaurants SET ?", newRestaurant, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
+  sql.query("INSERT INTO Restaurants SET ?", newRestaurant, (err, res) => {
+    if (err) throw err; // insert error
   
       console.log("created restaurant");
       result(null, { id: res.insertId, ...newRestaurant });
     });
   };
-
-Restaurant.findById = (id, result) => {
-    sql.query(`SELECT * FROM Restaurants WHERE idRestaurant = ${id}`, (err, res) => {
-    if (err) throw err; // select error
-
-    if (res.length) {
-      console.log("found restaurant: ", res[0]);
-      result(null, res[0]);
-      return;
-    }
-
-    // not found by ID
-    result({ kind: "not_found" }, null);
-  });
-};
 
 Restaurant.getAll = (restaurantName, result) => {
   let query = "SELECT * FROM Restaurants";
@@ -50,7 +31,7 @@ Restaurant.getAll = (restaurantName, result) => {
   sql.query(query, (err, res) => {
     if (err) throw err; // select error
 
-    console.log("restaurant: ", res);
+    console.log(res);
     result(null, res);
   });
 };

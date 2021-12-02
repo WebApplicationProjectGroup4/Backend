@@ -6,7 +6,7 @@ module.exports = app => {
     // create a new order
     router.post("/", orderHistory.create);
   
-    // retrieve all orders, with idCustomer condition
+    // retrieve all orders, with idUser condition
     router.get("/", orderHistory.findAll);
   
     app.use('/orderhistory', router);

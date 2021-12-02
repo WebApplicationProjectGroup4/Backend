@@ -22,8 +22,8 @@ app.use((req, res, next) => {
   next(); // handler -> next() -> function/route we want to use
 });
 
-let adminAcc = 0; // we'll use this to let frontend know
-// that this is admin
+let adminAcc = 0; // we'll use this to let frontend know that this is admin
+let idUser = 0;
 
 passport.use(new BasicStrategy(
   
@@ -56,6 +56,7 @@ passport.use(new BasicStrategy(
                 else
                   adminAcc = 0;
 
+                idUser = res[0].idUser;  
                 done(null, username);
               }
                 
@@ -74,12 +75,13 @@ passport.use(new BasicStrategy(
 
 app.get('/login', passport.authenticate('basic', { session: false}), (req, res) => {
   console.log("Login ok");
-
+  console.log("id: ",idUser);
+  
   if (adminAcc == 0) 
-    res.send("Login ok - user");
+    res.send(`Login ok - user - id: ${idUser}`);
   
   else
-    res.send("Login ok - admin");
+    res.send(`Login ok - admin - id: ${idUser}`);
   
 })
 
