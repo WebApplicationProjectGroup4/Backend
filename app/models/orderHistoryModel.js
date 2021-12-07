@@ -2,6 +2,7 @@ const sql = require("./db.js");
 
 // constructor
 const OrderHistory = function(orderHistory) {
+  this.orderedItems = orderHistory.orderedItems;
   this.price = orderHistory.price;
   this.idUser = orderHistory.idUser;
   this.idRestaurant = orderHistory.idRestaurant;
@@ -9,8 +10,8 @@ const OrderHistory = function(orderHistory) {
 
 OrderHistory.create = (newOH, result) => {
 
-  let procQuery = `CALL CreateOrderHistory(?,?,?)`;
-  sql.query(procQuery, [newOH.price, newOH.idUser, newOH.idRestaurant], (err, res) => {
+  let procQuery = `CALL CreateOrderHistory(?,?,?,?)`;
+  sql.query(procQuery, [newOH.orderedItems, newOH.price, newOH.idUser, newOH.idRestaurant], (err, res) => {
 
     if (err) throw err;
 

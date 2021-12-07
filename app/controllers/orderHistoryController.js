@@ -12,6 +12,7 @@ exports.create = (req, res) => {
   
   // create an order (post)
   const orderHistory = new OrderHistory({
+    orderedItems: req.body.orderedItems,
     price: req.body.price,
     idUser: req.body.idUser,
     idRestaurant: req.body.idRestaurant

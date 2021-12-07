@@ -1,5 +1,7 @@
 server.js
 
+! MySQL Server must be on !
+
 npm install -> npm start -> server online
 This script starts with npm start -command.
 

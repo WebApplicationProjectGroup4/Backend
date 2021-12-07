@@ -22,8 +22,8 @@ app.use((req, res, next) => {
   next(); // handler -> next() -> function/route we want to use
 });
 
-let adminAcc = 0; // we'll use this to let frontend know that this is admin
-let idUser = 0;
+let adminAcc = 0; // let frontend know that this is admin
+let idUser = 0; // let frontend know userid from db
 
 passport.use(new BasicStrategy(
   
