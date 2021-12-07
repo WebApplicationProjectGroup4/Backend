@@ -1,0 +1,17 @@
+
+! Tämä on mukana uusimmassa Modelissa ja molemmissa SQL skripteissä jotka ajaa saman asian !
+Sen voi tarkistaa mysql konsolista / workbenchistä
+SHOW PROCEDURE STATUS WHERE db = 'awa';
+
+//Tämä procedure mysql queryyn, eli avaa tietokanta query tabissa ja siellä vasemmassa palkissa näkyy SCHEMAS, sieltä stored procedures kohdalle ja oikeahiiri, create stored procedure..
+// Sinne kopioi tämä:
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateOrderHistory`(IN inOrderedItems VARCHAR(255), IN inPrice DOUBLE,IN inUserID INT, IN inRestaurantID INT )
+BEGIN
+
+INSERT INTO OrderHistory(idOrderHistory,Price,Date,Users_idUser,Restaurants_idRestaurant,OrderedItems) VALUES (0,inPrice,current_date(),inUserID,inRestaurantID,inOrderedItems);
+
+END
+
+// Ja oikealta alhaalta Apply!.
+

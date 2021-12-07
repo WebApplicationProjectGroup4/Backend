@@ -9,10 +9,4 @@ insert into restaurants values (0, "Picnic", 3, "Keskustankatu 15", "8-16", "Tac
 insert into restaurants values (0, "Subway", 3, "Linnanmaan kampus", "10-18", "Italian BMT 15cm-Italian BMT 15cm-Kana Teriyaki 15cm-Kana Teriyaki 30cm", "6-10-7-11");
 insert into restaurants values (0, "Ravintola", 0, "Testaustie 1", "0-24", "Test Food 1-Test Food 2-Test Food 3", "5-10-15");
 
-INSERT INTO OrderHistory VALUES(0, 25, current_date(), 1, 1);
-INSERT INTO OrderHistory VALUES(0, 50, current_date(), 2, 2);
-INSERT INTO OrderHistory VALUES(0, 75, current_date(), 3, 3);
-
-CALL CreateOrderHistory(25,1,1);
-CALL CreateOrderHistory(25,1,2);
-CALL CreateOrderHistory(25,1,3);
+CALL CreateOrderHistory("Pizza-Pasta",10,1,1);
