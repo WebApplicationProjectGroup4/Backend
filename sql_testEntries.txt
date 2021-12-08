@@ -1,12 +1,12 @@
 // Tehkää USERS -postaus APIn kautta, niin bcrypt kryptaa salasanat
 
-// restaurants on tyyliä id, nimi, pricelevel, address, operatinghours, menu (eroteltu viivoilla), menun hinnat (eroteltu viivoilla)
+// restaurants on tyyliä id, nimi, pricelevel, restauranttype, address, operatinghours, menu (eroteltu viivoilla), menun hinnat (eroteltu viivoilla)
 
-insert into restaurants values (0, "Hesburger", 2, "Keskustankatu 24", "8-21", "Mozzarella-Chili-Cheeseburger", "4-4-5");
-insert into restaurants values (0, "McDonalds", 1, "Ouluntie 27", "0-24", "Mozzarella Sticks-Nuggets-Big Mac-Cheeseburger", "2-4-6-1");
-insert into restaurants values (0, "Pannu", 3, "Toppilantie 14", "8-14", "Mozzarella-Chili Cheese-Cheeseburger", "5-10-15");
-insert into restaurants values (0, "Picnic", 3, "Keskustankatu 15", "8-16", "Taco Salad-Chicken", "4-6");
-insert into restaurants values (0, "Subway", 3, "Linnanmaan kampus", "10-18", "Italian BMT 15cm-Italian BMT 15cm-Kana Teriyaki 15cm-Kana Teriyaki 30cm", "6-10-7-11");
-insert into restaurants values (0, "Ravintola", 0, "Testaustie 1", "0-24", "Test Food 1-Test Food 2-Test Food 3", "5-10-15");
+insert into restaurants values (0, "Hesburger", 2, "Fast Food-Burgers", "Keskustankatu 24", "8-21", "Mozzarella-Chili-Cheeseburger", "4-4-5");
+insert into restaurants values (0, "McDonalds", 1, "Fast Food-Burgers", "Ouluntie 27", "0-24", "Mozzarella Sticks-Nuggets-Big Mac-Cheeseburger", "2-4-6-1");
+insert into restaurants values (0, "Pannu", 3, "Fast Food-Pizza", "Toppilantie 14", "8-14", "Mozzarella-Chili Cheese-Cheeseburger", "5-10-15");
+insert into restaurants values (0, "Picnic", 3, "Lunch Break", "Keskustankatu 15", "8-16", "Taco Salad-Chicken", "4-6");
+insert into restaurants values (0, "Subway", 3, "Breads", "Linnanmaan kampus", "10-18", "Italian BMT 15cm-Italian BMT 15cm-Kana Teriyaki 15cm-Kana Teriyaki 30cm", "6-10-7-11");
+insert into restaurants values (0, "Ravintola", 0, "Testi", "Testaustie 1", "0-24", "Test Food 1-Test Food 2-Test Food 3", "5-10-15");
 
 CALL CreateOrderHistory("Pizza-Pasta",10,1,1);
