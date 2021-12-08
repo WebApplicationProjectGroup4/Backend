@@ -34,6 +34,7 @@ exports.findAll = (req, res) => {
 
   const idUser = userID();
   // get the last idUser
+  console.log("idUser in OH controller: ", idUser);
   
   OrderHistory.getAll(idUser, (err, data) => {
     if (err)

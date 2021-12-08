@@ -10,6 +10,8 @@ const OrderHistory = function(orderHistory) {
 
 OrderHistory.create = (newOH, result) => {
 
+  console.log("idUser in OH POST model: ", newOH.idUser);
+
   let procQuery = `CALL CreateOrderHistory(?,?,?,?)`;
   sql.query(procQuery, [newOH.orderedItems, newOH.price, newOH.idUser, newOH.idRestaurant], (err, res) => {
 
@@ -22,7 +24,10 @@ OrderHistory.create = (newOH, result) => {
 
 OrderHistory.getAll = (idUser, result) => {
 
+  console.log("idUser in OH GET model: ", idUser);
+
   if (idUser === undefined || isNaN(idUser) || idUser === 0) throw "idUser is undefined, NaN or 0!";
+  
     
   let query = `SELECT * FROM OrderHistory WHERE Users_idUser = ${idUser}`;
   // get all orders by this user

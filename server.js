@@ -1,13 +1,18 @@
-const express = require("express");
-const app = express();
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const sql = require("./app/models/db.js");
 const cors = require("cors");
 const userID = require("./app/models/currentUserID.js");
 const bcrypt = require("bcrypt");
+const multer = require('multer');
+const upload = multer({ dest: 'pictures/' });
+const express = require("express");
+//const fs = require('file-system');
+const fs = require('fs');
 
-// set port, listen for requests
+const app = express();
+
+// set port
 const PORT = process.env.PORT || 3001;
 
 // parse requests of content-type - application/json
@@ -86,6 +91,26 @@ app.get('/login', passport.authenticate('basic', { session: false}), (req, res) 
     res.send(`Login ok - admin - id: ${idUser}`);
 })
 
+// post: http://localhost:3001/upload
+// body - form-data
+// 1st key 'img', value 'yourimage.jpg'.
+// 2nd key 'text', value 'imagename'.
+
+app.post('/upload', upload.single('img'), function (req, res, next) {
+  // req.file is the 'img' file
+  // req.body will hold the text fields, if there were any
+  console.log("req.file: ", req.file);
+  console.log("req.body: ", req.body.text);
+
+
+  // req.file.filename gets renamed to whatever you had in the post body as key 'text'.
+  // jpg is added automatically so instead of pepe.jpg you can just type pepe as the value
+  fs.rename(`pictures/${req.file.filename}`, `pictures/${req.body.text}.jpg`, function(err) {
+    if (err) throw err;
+  });
+
+  res.sendStatus(201);
+})
 
 app.get('/authorizationsite', passport.authenticate('basic', { session: false}), function(req, res) {
   console.log("Access granted");
