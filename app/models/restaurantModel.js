@@ -24,14 +24,12 @@ Restaurant.create = (newRestaurant, result) => {
 Restaurant.getAll = (restaurantName, result) => {
   let query = "SELECT * FROM Restaurants";
 
-  if (restaurantName) {
+  if (restaurantName)
     query += ` WHERE Name LIKE '%${restaurantName}%'`;
-  }
 
   sql.query(query, (err, res) => {
     if (err) throw err; // select error
 
-    console.log(res);
     result(null, res);
   });
 };

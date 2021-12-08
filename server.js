@@ -7,7 +7,6 @@ const bcrypt = require("bcrypt");
 const multer = require('multer');
 const upload = multer({ dest: 'pictures/' });
 const express = require("express");
-//const fs = require('file-system');
 const fs = require('fs');
 
 const app = express();
@@ -35,9 +34,6 @@ passport.use(new BasicStrategy(
   
   function(username, password, done) {
 
-    console.log('username: ' + username);
-    console.log('password: ' + password);
-
     let query = `SELECT * FROM Users WHERE Name = '${username}'`; // get this user from DB
 
       sql.query(query, (err, res) => {
@@ -54,7 +50,6 @@ passport.use(new BasicStrategy(
               const admin = (res[0].AdminAccount == 1);
 
               if(result == true) {
-                console.log("Admin check: ", admin);
 
                 if (admin == true)
                   adminAcc = 1;
@@ -63,11 +58,10 @@ passport.use(new BasicStrategy(
                   adminAcc = 0;
 
                 idUser = res[0].idUser;
-                userID(idUser); // pass this to currentUserID.js
+                userID(idUser); // pass current user to currentUserID.js
                 done(null, username);
               }
                 
-              
               else
                 done(null, false);
             }) ();
@@ -81,8 +75,7 @@ passport.use(new BasicStrategy(
 ));
 
 app.get('/login', passport.authenticate('basic', { session: false}), (req, res) => {
-  console.log("Login ok");
-  console.log("User id: ", idUser);
+  console.log("login ok - user id: ", idUser);
   
   if (adminAcc == 0) 
     res.send(`Login ok - user - id: ${idUser}`);
@@ -91,30 +84,21 @@ app.get('/login', passport.authenticate('basic', { session: false}), (req, res) 
     res.send(`Login ok - admin - id: ${idUser}`);
 })
 
-// post: http://localhost:3001/upload
-// body - form-data
-// 1st key 'img', value 'yourimage.jpg'.
-// 2nd key 'text', value 'imagename'.
-
 app.post('/upload', upload.single('img'), function (req, res, next) {
   // req.file is the 'img' file
   // req.body will hold the text fields, if there were any
+
   console.log("req.file: ", req.file);
-  console.log("req.body: ", req.body.text);
+  console.log("req.body: ", req.body);
 
-
-  // req.file.filename gets renamed to whatever you had in the post body as key 'text'.
-  // jpg is added automatically so instead of pepe.jpg you can just type pepe as the value
   fs.rename(`pictures/${req.file.filename}`, `pictures/${req.body.text}.jpg`, function(err) {
     if (err) throw err;
   });
 
-  res.sendStatus(201);
-})
+  // req.file.filename gets renamed to whatever you had in the post body as key 'text'.
+  // jpg is added automatically so instead of pepe.jpg you can just type pepe as the value
 
-app.get('/authorizationsite', passport.authenticate('basic', { session: false}), function(req, res) {
-  console.log("Access granted");
-  res.send("Access granted");
+  res.sendStatus(201);
 })
 
 require("./app/routes/userRoute.js")(app);
