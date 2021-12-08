@@ -22,8 +22,7 @@ OrderHistory.create = (newOH, result) => {
 
 OrderHistory.getAll = (idUser, result) => {
 
-  console.log("idUser in model: ",idUser);
-  if (idUser === undefined || isNaN(idUser)) throw "idUser is undefined or NaN!"
+  if (idUser === undefined || isNaN(idUser) || idUser === 0) throw "idUser is undefined, NaN or 0!";
     
   let query = `SELECT * FROM OrderHistory WHERE Users_idUser = ${idUser}`;
   // get all orders by this user
@@ -31,8 +30,10 @@ OrderHistory.getAll = (idUser, result) => {
     sql.query(query, (err, res) => {
         if (err) throw err; // select error
     
-        if (res.length) 
+        if (res.length)
           result(null, res);
+        else
+          result(null, "No orders by this account!");
     });
 };
 

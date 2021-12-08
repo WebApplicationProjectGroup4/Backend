@@ -1,4 +1,5 @@
 const OrderHistory = require("../models/orderHistoryModel.js");
+const userID = require("../models/currentUserID.js");
 
 // create and save a new order to db
 exports.create = (req, res) => {
@@ -31,8 +32,8 @@ exports.create = (req, res) => {
 // retrieve all orders from the database (with body condition).
 exports.findAll = (req, res) => {
 
-  const idUser = req.body.idUser;
-  console.log("idUser in controller: ",idUser);
+  const idUser = userID();
+  // get the last idUser
   
   OrderHistory.getAll(idUser, (err, data) => {
     if (err)

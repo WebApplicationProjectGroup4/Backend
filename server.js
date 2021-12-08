@@ -4,6 +4,7 @@ const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const sql = require("./app/models/db.js");
 const cors = require("cors");
+const userID = require("./app/models/currentUserID.js");
 const bcrypt = require("bcrypt");
 
 // set port, listen for requests
@@ -56,7 +57,8 @@ passport.use(new BasicStrategy(
                 else
                   adminAcc = 0;
 
-                idUser = res[0].idUser;  
+                idUser = res[0].idUser;
+                userID(idUser); // pass this to currentUserID.js
                 done(null, username);
               }
                 
@@ -75,14 +77,13 @@ passport.use(new BasicStrategy(
 
 app.get('/login', passport.authenticate('basic', { session: false}), (req, res) => {
   console.log("Login ok");
-  console.log("id: ",idUser);
+  console.log("User id: ", idUser);
   
   if (adminAcc == 0) 
     res.send(`Login ok - user - id: ${idUser}`);
   
   else
     res.send(`Login ok - admin - id: ${idUser}`);
-  
 })
 
 
