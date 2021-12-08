@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `awa`.`restaurants` (
   `idRestaurant` INT(11) NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(255) NULL DEFAULT NULL,
   `PriceLevel` INT(4) NULL DEFAULT NULL,
+  `RestaurantType` VARCHAR(255) NULL,
   `Address` VARCHAR(255) NULL,
   `OperatingHours` VARCHAR(255) NULL,
   `Foods` VARCHAR(255) NULL,
