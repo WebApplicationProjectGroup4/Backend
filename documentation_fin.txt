@@ -3,14 +3,11 @@ server.js
 ! MySQL -palvelimen tulee olla päällä !
 
 npm install -> npm start -> palvelin käynnissä
-Tämä skripti käynnistyy npm start -komennolla.
 
-Rivi 4 -> Kansio app määritellään express -palvelimeksi.
-Rivi 10 -> Cors otetaan käyttöön, helpottaa tietokannan käyttöä expressillä.
-Cors kuuntelee http-pyyntöjä portilla 8081.
+Kansio app määritellään express -palvelimeksi.
+Cors otetaan käyttöön, helpottaa http pyyntöjä eri porttien välillä.
 
-Rivit 24-27 -> Otetaan express-palvelimella käyttöön http-reitit, joita kontrolleri käyttää.
-Rivi 30 -> Asetetaan kuuntelevaksi portiksi 8080.
+Kuuntelevaksi portiksi on 3001.
 
 
 
@@ -35,14 +32,13 @@ niin se palauttaa kyseisestä taulusta kaiken.
 /models/
 
 Funktiot tietokannan käytölle. Kontrollerilta tulee http-käsky, jonka vastaava model toteuttaa.
-Esim. customerController.js -> Exports.create(kontrolleri) -> Customer.create(model)
--> "INSERT INTO Customer SET ?". Kysymysmerkin paikalle otetaan kontrollerilta modelille parametrina viety JSON-olio.
+Esim. userController.js -> Exports.create(kontrolleri) -> User.create(model)
+-> "INSERT INTO User SET ?". Kysymysmerkin paikalle otetaan kontrollerilta modelille parametrina viety JSON-olio.
 
 db.js
 
 Tietokantayhteys -skripti. Tämä käyttää aiemmin tehtyä vakioyhteyttä tietokantaan,
 sekä exporttaa sen jokaiselle modelille jotta niistäkin saadaan tietokantayhteys.
-
 
 
 
@@ -53,7 +49,7 @@ Jos tyyppinä on router.post, niin mennään vastaavan modelin INSERT -funktioon
 .get menee SELECT -funktioon jne.
 
 Suurin osa toimii tähän mennessä indexillä, eli jos ollaan
-localhost:8080/customers niin URL:iin ei tarvitse lisätä mitään,
+localhost:3001/restaurants niin URL:iin ei tarvitse lisätä mitään,
 lähetetään vain get/post pyyntö, joka palauttaa tietokannasta entryjä.
 
 

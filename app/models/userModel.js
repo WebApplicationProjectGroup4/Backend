@@ -11,6 +11,8 @@ const User = function(user) {
 // remember to post with JSON data in postman :-)
 User.create = (newUser, result) => {
 
+  console.log(newUser);
+
   const salt = bcrypt.genSaltSync(6);
   newUser.password = bcrypt.hashSync(newUser.password, salt);
   // encrypt new password

@@ -2,16 +2,17 @@ const sql = require("./db.js");
 
 // constructor
 const OrderHistory = function(orderHistory) {
-  this.orderedItems = orderHistory.orderedItems;
   this.price = orderHistory.price;
+  this.date = orderHistory.date;
   this.idUser = orderHistory.idUser;
   this.idRestaurant = orderHistory.idRestaurant;
+  this.orderedItems = orderHistory.orderedItems;
 };
 
 OrderHistory.create = (newOH, result) => {
 
-  let procQuery = `CALL CreateOrderHistory(?,?,?,?)`;
-  sql.query(procQuery, [newOH.orderedItems, newOH.price, newOH.idUser, newOH.idRestaurant], (err, res) => {
+  sql.query(`INSERT INTO OrderHistory VALUES(0,?,current_date,?,?,?) `,
+  [newOH.price, newOH.idUser, newOH.idRestaurant, newOH.orderedItems], (err, res) => {
 
     if (err) throw err;
 

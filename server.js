@@ -101,6 +101,8 @@ app.post('/upload', upload.single('img'), function (req, res, next) {
   res.sendStatus(201);
 })
 
+app.use('/pictures', express.static(process.cwd() + '/pictures'));
+
 require("./app/routes/userRoute.js")(app);
 require("./app/routes/restaurantRoute.js")(app);
 require("./app/routes/orderHistoryRoute.js")(app);

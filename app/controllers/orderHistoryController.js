@@ -13,10 +13,11 @@ exports.create = (req, res) => {
   
   // create an order (post)
   const orderHistory = new OrderHistory({
-    orderedItems: req.body.orderedItems,
+    date: req.body.date,
     price: req.body.price,
     idUser: req.body.idUser,
-    idRestaurant: req.body.idRestaurant
+    idRestaurant: req.body.idRestaurant,
+    orderedItems: req.body.orderedItems
   });
 
   // save order in the db
