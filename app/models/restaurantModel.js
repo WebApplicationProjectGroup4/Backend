@@ -4,6 +4,7 @@ const sql = require("./db.js");
 const Restaurant = function(restaurant) {
   this.name = restaurant.name;
   this.priceLevel = restaurant.priceLevel;
+  this.restaurantType = restaurant.restaurantType;
   this.address = restaurant.address;
   this.operatingHours = restaurant.operatingHours;
   this.foods = restaurant.foods;

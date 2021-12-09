@@ -14,6 +14,7 @@ exports.create = (req, res) => {
   const restaurant = new Restaurant({
     name: req.body.name,
     address: req.body.address,
+    restaurantType: req.body.restaurantType,
     priceLevel: req.body.priceLevel,
     operatingHours: req.body.operatingHours,
     foods: req.body.foods,
