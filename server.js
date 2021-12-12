@@ -6,10 +6,18 @@ const userID = require("./app/models/currentUserID.js");
 const bcrypt = require("bcrypt");
 const multer = require('multer');
 const upload = multer({ dest: 'pictures/' });
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const express = require("express");
 const fs = require('fs');
 
 const app = express();
+
+cloudinary.config({ 
+  cloud_name: 'vatuapi', 
+  api_key: '554931322664969', 
+  api_secret: '5LPaYLgSBvVNAt9YrmYy8IZEKJE',
+});
 
 // set port
 const PORT = process.env.PORT || 3001;
@@ -85,23 +93,46 @@ app.get('/login', passport.authenticate('basic', { session: false}), (req, res) 
 })
 
 app.post('/upload', upload.single('img'), function (req, res, next) {
-  // req.file is the 'img' file
-  // req.body will hold the text fields, if there were any
 
-  console.log("req.file: ", req.file);
-  console.log("req.body: ", req.body);
+  var file = req.file.filename;
+  var text = req.body.text.toLowerCase();
 
-  fs.rename(`pictures/${req.file.filename}`, `pictures/${req.body.text}.jpg`, function(err) {
-    if (err) throw err;
+  console.log("filename: ", file, ", replaced with: ", text);
+
+  fs.rename(`pictures/${file}`, `pictures/${text}.jpg`, function(err) {
+      if (err) throw err;
+    });
+
+  cloudinary.uploader
+    .upload(`pictures/${text}.jpg`, {
+      resource_type: "image",
+      public_id: `pictures/${text}`
+  })
+  
+  .then((result) => {
+    console.log(`${text}.jpg posted to cloudinary`);
+
+    sql.query(`UPDATE Restaurants SET ImageURL = '${result.url}' WHERE Name = '${req.body.text}'`, (err, res) => {
+      if (err) throw err; // update error
+    
+        console.log("added url to imageurl field");
+      });
+
+    fs.rm(`pictures/${text}.jpg`, { force:true }, (err) => {
+      if(err) {
+        console.error(err.message);
+        return;
+      }
+      console.log(`${text}.jpg deleted from /pictures`);
+    });
+  })
+
+  .catch((error) => {
+    console.log(JSON.stringify(error, null, 2));
   });
-
-  // req.file.filename gets renamed to whatever you had in the post body as key 'text'.
-  // jpg is added automatically so instead of pepe.jpg you can just type pepe as the value
-
-  res.sendStatus(201);
-})
-
-app.use('/pictures', express.static(process.cwd() + '/pictures'));
+    
+  res.send("restaurant + image post ok");
+});
 
 require("./app/routes/userRoute.js")(app);
 require("./app/routes/restaurantRoute.js")(app);
