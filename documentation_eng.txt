@@ -1,0 +1,119 @@
+server.js - file
+
+! MySQL Server must be on !
+
+npm install -> npm start -> server online
+
+Folder app is declared as an express -server.
+We've enabled CORS, it helps with cross-origin HTTP requests.
+
+The listening port is dynamic.
+
+After adding node modules to the file, we "authenticate" to Cloudinary
+or rather set our configuration for it. Cloudinary is used
+in this project to store our images after they get posted.
+
+We've used passport-basic-auth for user authentication.
+Its' function gets current user's username & password,
+then does a database query to see if that user exists.
+If the database query's result is empty, we reject the request
+because that user does not exist. If that username exists,
+we double check that username parameter matches database query's
+result username.  We then proceed to an async function, that
+checks if the crypted password from the database matches our
+given password.
+
+Inserted passwords are always encrypted using
+bcrypt. If result of the comparison is true (match), we
+check if the user's AdminAccount field in DB is true or not.
+If it's true, we modify the global adminAcc variable to 1.
+Else, adminAcc var is 0. We also save current user's idUser
+to global variable idUser, and pass it to a function that saves
+the last user id. Authentication is now done, and we send
+either USR/$idUser or ADM/$idUser to frontend depending on the
+AdminAccount field.
+
+
+The function userID located in /models/currentUserID.js is used
+in getting specific user's orderhistory on our site. This was a
+fast implementation in a bit of a hurry because the deadline was
+getting closer. When we view our orderhistory on the website,
+orderhistory's get -method function checks the last userID from
+the imported function.
+
+
+Image uploading is also done in a hurry, because it worked for 7 restaurants,
+then stopped working the next day. My first approach to this was to modify the
+cloud image's public id, so it would have that restaurant's name as it's file name
+in the cloud. It would most of the time get the photo correctly, but sometimes it
+wouldn't display right and 20% of the photos I posted had wrong URL's.
+
+I asked Reima for help, and got lots of it. He suggested an ImageURL field in our database,
+that would get modified during image posting. So, using the same methods as I had earlier,
+When we receive an image, we search its' body for RestaurantName, then do an sql query based on that.
+When we find that restaurant, we update its' ImageURL field to the result.url value we receive from
+Cloudinary's api. SQL Query only gets executed if cloud upload was successful. When SQL Query is also ok,
+we delete the given image from our /pictures/ temporary folder.
+
+I am not proud of the bad code in passport authentication & image uploading.
+
+
+
+/config/dbConfig.js
+
+Exported stock connection to Heroku database.
+
+
+
+/models/db.js
+
+Database connection script. This uses the earlier declared stock connection to the database,
+and exports it so the files that import this, can connect to the database too and make queries.
+
+We're using a connection pool to avoid Heroku application errors.
+
+
+
+/controllers/
+
+HTTP request -controllers for each database table.
+Each export -function will send information to related table model in /models/,
+if it needs information.
+
+Some getAll() -functions works with or without parameters,
+if you decide to put parameters in the http request it will return related entries from the table.
+If you decide to call it with no parameters, it will return everything from the related table.
+
+
+
+/models/
+
+Functions to use the database. Controller will process a HTTP request and send it to it's related model.
+For an example userController.js -> Exports.create(controller) -> User.create(model)
+-> "INSERT INTO User SET ?". The ? will be replaced with the parameter we've been given by the controller.
+The parameter is usually a array, which the .query -function will parse and insert/select from the database.
+
+
+
+
+
+/routes/
+
+Controller will get the information on what to do by these routes.
+If the route type is router.post, we'll go to the related model's INSERT -function,
+router.get will go to the SELECT -function etc.
+
+Most of these work so far by index, which means that if we are in
+localhost:3001/restaurants, the URL does not need to change.
+We only send a get/post request, which will return related entries from the database.
+
+
+
+/node_modules/
+
+The folder is created with the npm install -command, and it automatically installs all the modules and files it needs to work.
+This is in .gitignore because it takes space from our github root folder, so it is always installed locally before the server can be set up.
+
+
+
+-- Valtteri Ekoluoma --

@@ -1,0 +1,112 @@
+server.js - tiedosto
+! MySQL -palvelimen tulee olla päällä !
+
+npm install -> npm start -> palvelin käynnissä
+
+Kansio app määritellään express -palvelimeksi.
+Cors otetaan käyttöön, helpottaa http pyyntöjä eri porttien välillä.
+
+Kuunteleva portti on dynaaminen.
+
+Kun node moduulit on lisätty tiedostoon, me ns. autentikoidutaan Cloudinaryyn
+tai oikeastaan asetetaan meidän konfigurointi Cloudinary APIn käytölle.
+Cloudinarya käytetään tässä projektissa tallentamaan meidän kuvat kun ne 
+postataan backendiin.
+
+Käytimme passport-basic-authia käyttäjän autentikointiin.
+Sen funktio saa nykyisen käyttäjän nimen ja salasanan,
+sitten tekee tietokanta queryn nähdäkseen, jos käyttäjä on olemassa.
+Jos tietokannalta tullut vastaus on tyhjä, kirjautumispyyntö hylätään
+koska käyttäjää ei ole olemassa. Jos käyttäjä on olemassa,
+me tarkistetaan toisen kerran että käyttäjänimi varmasti on sama
+kuin tietokannan vastauksessa. Sitten jatketaan async funktioon,
+joka tarkistaa että kryptattu salasana tietokannasta on sama
+kuin käyttäjän antama kryptaamaton salasana.
+
+Tietokantaan insertatut salasanat ovat aina enkryptattu käyttäen
+bcryptiä. Jos vertailun vastaus on true (samat salasanat & käyttäjänimet),
+me tarkistamme onko käyttäjän AdminAccount -kenttä true vai false tietokannan
+vastauksesta. Jos se on true niin muokataan globaalia adminAcc muuttuja ykköseksi.
+Jos se on false, niin adminAcc muuttuja on 0. Me myös tallennamme nykyisen käyttäjän
+idUser -kentän globaaliin muuttujaan idUser, ja viedään se funktioon joka tallentaa
+nykyisen käyttäjän id:n. Autentikointi on nyt tehty, ja nettisivulle lähetetään
+joko USR/$idUser tai ADM/$idUser riippuen AdminAccount kentästä.
+
+Funktio userID on /models/currentUserID.js -tiedostossa. Sitä käytetään saadakseen
+nykyisen käyttäjän tilaushistoria nettisivulla. Tämä oli nopea implementaatio kiireessä
+koska projektin deadline lähestyi pelottavaa vauhtia. Kun näemme tilaushistorian nettisivula,
+orderhistoryn get -metodin funktio tarkistaa viimeisen käyttäjän id:n tästä funktiosta.
+
+
+Kuvan lisääminen on myös tehty kiireessä, koska se toimi aluksi 7 ravintolalla,
+sitten lopetti toimimisen seuraavana päivänä. Ensimmäinen lähestymiseni tähän oli
+muokata Cloudinaryyn lisätyn kuvan nimeä sekä URL:ia (public_id). Tämä oli alkup.
+lähestyminen myös siinä kun backend -kansiosta löytyi kuvat staattisena jaettuna kansiona,
+ja nettisivulta tarvi hakea ravintolan kuvaksi vain img.src = {url/pictures/${restaurant.name}}.
+Tämä toimi suurimmaksi osaksi mutta n. 20% postatuista kuvista jäi väärälle URLille, jota nettisivu
+ei löytänyt ja antoi 404 errorin.
+
+Kysyin Reimalta tähän apua, ja sain sitä paljon. Hän suositteli ImageURL -kenttää tietokantaan, jota
+muokata kuvan postaamisen aikana. Joten, käyttäen samoja metodeita mitä aiemmin, kun kuva saapuu backendiin,
+me etsitään sen mukana tulleesta req.bodystä ravintolan nimeä, ja tehdään tietokanta query sen perusteella.
+Kun kyseinen ravintola löytyy, me päivitetään sen ImageURL kenttää cloudinaryn api:sta vastauksena tulleen result.url:iksi.
+Tietokanta query tehdään vain, jos cloudinaryyn kuvan uploadaaminen on OK. kun SQL query on myös ok, me poistetaan kyseinen kuva
+väliaikaisesta /pictures/ kansiosta.
+
+En ole ylpeä huonosta koodista passport autentikoinnissa sekä kuvan uploadaamisessa.
+
+
+
+/config/dbConfig.js
+
+Exportattu vakio yhteys Heroku ClearDB -tietokantaan
+
+/models/db.js
+
+Tietokantayhteys -skripti. Tämä käyttää aiemmin tehtyä vakioyhteyttä tietokantaan,
+sekä eksporttaa sen jokaiselle tiedostolle joka importtaa tämän, jotta niistäkin
+voi tehdä tietokanta queryjä. Käytämme käyttäjä "poolia", ettei Herokussa tule
+ylimääräisiä ja/tai turhia error-viestejä.
+
+
+
+
+/controllers/
+
+HTTP Request kontrollerit jokaiselle tietokannan taululle.
+Jokainen export-funktio lähettää vastaavan taulun modelille jotain tietoa,
+jos se sitä tarvitsee. getAll() -funktio toimii tiedolla tai ilman, jos sinne viedään
+tietoa niin se palauttaa vastaavat entryt taulusta, jos se kutsutaan null -muuttujalla
+niin se palauttaa kyseisestä taulusta kaiken.
+
+
+
+/models/
+
+Funktiot tietokannan käytölle. Kontrollerilta tulee http-käsky, jonka vastaava model toteuttaa.
+Esim. userController.js -> Exports.create(kontrolleri) -> User.create(model)
+-> "INSERT INTO User SET ?". Kysymysmerkin paikalle otetaan kontrollerilta modelille parametrina viety taulukko.
+
+
+
+
+/routes/
+
+Kontrolleri saa näistä skripteistä tiedon mitä tehdään.
+Jos tyyppinä on router.post, niin mennään vastaavan modelin INSERT -funktioon,
+.get menee SELECT -funktioon jne.
+
+Suurin osa toimii tähän mennessä indexillä, eli jos ollaan
+localhost:3001/restaurants niin URL:iin ei tarvitse lisätä mitään,
+lähetetään vain get/post pyyntö, joka palauttaa tietokannasta entryjä.
+
+
+
+/node_modules/
+
+Kansio luodaan npm install komennolla, ja se asentaa automaattisesti kaikki tarvitsemansa moduulit ja tiedostot.
+Tämä on .gitignoressa koska vie tilaa github -kansiosta, joten se asennetaan aina paikallisesti ennen kuin palvelin pystytetään.
+
+
+
+-- Valtteri Ekoluoma --
